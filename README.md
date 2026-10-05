@@ -1,5 +1,7 @@
 # Diffusion + YOLO + CLIP
 
+![UI screenshot](images/ui.png)
+
 Type a text prompt, generate an image with **Stable Diffusion**, then check the result with two other models:
 
 - **YOLO** finds the objects in the image and says how confident it is.
@@ -87,34 +89,8 @@ a bowl of food on a table
 
 Expected result: YOLO detects a `cat`, and CLIP gives the prompt close to 100%.
 
-## Troubleshooting
-
-**CLIP gives strange results (like 50% / 49% for unrelated captions)**
-Check that the `image` variable really holds the picture you think it does. If you run cells out of order or reuse the name `image` for something else, CLIP will score the wrong picture. Use `display(image)` to look at it.
-
-**Gradio error about the number of outputs**
-The number of values returned by `run()` must match the number of components in `outputs=[...]`. If you add or remove a UI element, change both places.
-
-**`gradio` not found**
-Run `!pip install -q gradio` in a cell, then run the UI cell again.
-
-**Out of GPU memory**
-Restart the runtime, run the cells once, and avoid loading the models twice. Lower the steps or generate one image at a time.
-
-**Black or blank image**
-Stable Diffusion's safety checker can replace an image with a black one. Try a different prompt or seed.
-
-**Some cells show "Warning: unauthenticated requests to the HF Hub"**
-This is harmless. Set an `HF_TOKEN` in Colab secrets for faster downloads.
-
-## Ideas for next steps
 
 - Generate several images per prompt and rank them by CLIP score
 - Compare CLIP scores for color and counting prompts (`two red apples`)
 - Try a larger YOLO model (`yolo11s.pt`, `yolo11m.pt`) for better detection
 - Save results (image, detections, scores) to a folder or CSV
-
-## Notes
-
-- The Gradio link only works while the Colab session is running.
-- Model weights have their own licenses. Check each model's page before using outputs commercially.
